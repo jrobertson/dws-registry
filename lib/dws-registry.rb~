@@ -10,17 +10,9 @@ class DWSRegistry < XMLRegistry
   def initialize(filename=nil)
     
     super()
-    
     if filename then
-
-      @filename = filename      
-      
-      if File.exists? filename then
-        load_xml(filename)
-      else
-        save()
-      end      
-
+      @filename = filename
+      load_xml(filename)
     end
   end
 
@@ -34,8 +26,7 @@ class DWSRegistry < XMLRegistry
     save()
   end
 
-  def save(filename=nil)
-    @filename = filename if filename
+  def save()
     super(@filename)
   end
 
@@ -49,3 +40,5 @@ class DWSRegistry < XMLRegistry
   end  
 
 end
+
+
