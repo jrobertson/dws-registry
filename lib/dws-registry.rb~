@@ -29,7 +29,8 @@ class DWSRegistry < XMLRegistry
   def get_key(path)
     
     e = super path
-    c = e.attributes[:class]
+    raw_c = e.attributes[:class]
+    c = raw_c.first if raw_c
     s = e.text
     
     return e if s.nil?    
@@ -66,7 +67,7 @@ class DWSRegistry < XMLRegistry
     e = super(path, value)    
 
     type = find_class value unless type
-    e.attributes[:class] = type if type
+    e.attributes[:class] = [type] if type
     
     save() if @autosave
     e

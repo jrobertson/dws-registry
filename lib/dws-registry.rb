@@ -102,12 +102,13 @@ class DWSRegistry < XMLRegistry
   
   def find_class(v)
 
-    if v.to_i.to_s.length == v.length then :number
-    elsif v.to_f.to_s.length == v.length then :number
+    if v[/^\d+$/] and v.to_i.to_s.length == v.length then :number
+    elsif v[/^\d+\.\d+$/] and v.to_f.to_s.length == v.length then :number
     elsif v.downcase[/^(?:true|false|on|off|yes|no)$/] then :boolean
     elsif v[/^\#.*\#$/] then :time
     elsif v[/^\/\/job:\S+\s+https?:\/\//] then :job
     end
-  end  
+  end
+
 
 end
