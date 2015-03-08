@@ -32,8 +32,8 @@ class DWSRegistry < XMLRegistry
     raw_c = e.attributes[:class]
     c = raw_c.first if raw_c
     s = e.text
-    
-    return e if s.nil?    
+
+    return e if e.elements.length > 0 or s.nil?    
     return s unless c
           
     h = {
@@ -42,6 +42,8 @@ class DWSRegistry < XMLRegistry
         case x
         when 'true' then true
         when 'false' then false
+        when 'on' then true
+        when 'off' then false
         else x
         end
       },
