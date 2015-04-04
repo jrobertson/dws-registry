@@ -4,6 +4,8 @@
 
 require 'time'
 require 'xml-registry'
+require 'rscript'
+
 
 class DWSRegistry < XMLRegistry
   
@@ -27,8 +29,9 @@ class DWSRegistry < XMLRegistry
   end
   
   def get_key(path)
-    
+
     e = super path
+
     raw_c = e.attributes[:class]
     c = raw_c.first if raw_c
     s = e.text
@@ -73,6 +76,13 @@ class DWSRegistry < XMLRegistry
     e.parent.attributes[:last_modified] = Time.now
     
     save() if @autosave
+    
+    onchange = e.attributes[:onchange]
+    
+    if onchange then
+      RScript.new.run onchange.sub('$value', value).split
+    end
+    
     e
   end
 
@@ -112,5 +122,6 @@ class DWSRegistry < XMLRegistry
     elsif v[/^\/\/job:\S+\s+https?:\/\//] then :job
     end
   end
+
 
 end

@@ -67,9 +67,10 @@ class DWSRegistry < XMLRegistry
     end
     
     e = super(path, value)    
-
+    
     type = find_class value unless type
     e.attributes[:class] = [type] if type
+    e.parent.attributes[:last_modified] = Time.now
     
     save() if @autosave
     e
@@ -111,6 +112,5 @@ class DWSRegistry < XMLRegistry
     elsif v[/^\/\/job:\S+\s+https?:\/\//] then :job
     end
   end
-
 
 end
