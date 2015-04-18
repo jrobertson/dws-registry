@@ -28,10 +28,12 @@ class DWSRegistry < XMLRegistry
     end
   end
   
-  def get_key(path)
+  def get_key(path, auto_detect_type: false)
 
     e = super path
 
+    return e unless auto_detect_type
+    
     raw_c = e.attributes[:class]
     c = raw_c.first if raw_c
     s = e.text
@@ -54,7 +56,7 @@ class DWSRegistry < XMLRegistry
       time:   ->(x) {Time.parse x}
     }
                             
-    h[c.to_sym].call s
+    h[c.to_sym].call s   
     
   end
 
@@ -76,7 +78,7 @@ class DWSRegistry < XMLRegistry
     e.parent.attributes[:last_modified] = Time.now
     
     save() if @autosave
-    
+
     onchange = e.attributes[:onchange]
     
     if onchange then
