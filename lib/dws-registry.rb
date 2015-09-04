@@ -5,6 +5,7 @@
 require 'time'
 require 'xml-registry'
 require 'rscript'
+require 'json'
 
 
 class DWSRegistry < XMLRegistry

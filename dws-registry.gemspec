@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name = 'dws-registry'
-  s.version = '0.3.2'
+  s.version = '0.3.3'
   s.summary = 'dws-registry'
   s.authors = ['James Robertson']
   s.files = Dir['lib/**/*.rb']
