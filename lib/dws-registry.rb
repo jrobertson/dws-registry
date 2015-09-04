@@ -53,7 +53,8 @@ class DWSRegistry < XMLRegistry
         end
       },
       number: ->(x){  x[/^[0-9]+$/] ? x.to_i : x.to_f },
-      time:   ->(x) {Time.parse x}
+      time:   ->(x) {Time.parse x},
+      json:   ->(x) {JSON.parse x}
     }
                             
     h[c.to_sym].call s   
@@ -69,6 +70,7 @@ class DWSRegistry < XMLRegistry
     when :float      then [value.to_s, :number]      
     when :falseclass then [value.to_s, :boolean]
     when :trueclass  then [value.to_s, :boolean]
+    when :array       then ["%s" % value.to_json, :json]
     end
     
     e = super(path, value)    
@@ -122,6 +124,7 @@ class DWSRegistry < XMLRegistry
     elsif v.downcase[/^(?:true|false|on|off|yes|no)$/] then :boolean
     elsif v[/^\#.*\#$/] then :time
     elsif v[/^\/\/job:\S+\s+https?:\/\//] then :job
+    elsif v[/^\[.*\]$/] then :json
     end
   end
 
