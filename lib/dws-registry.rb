@@ -35,7 +35,7 @@ class DWSRegistry < XMLRegistry
 
     return e unless auto_detect_type
     
-    raw_c = e.attributes[:class]
+    raw_c = e.attributes[:type]
     c = raw_c.first if raw_c
     s = e.text
 
@@ -76,8 +76,8 @@ class DWSRegistry < XMLRegistry
     
     e = super(path, value)    
     
-    type = find_class value unless type
-    e.attributes[:class] = [type] if type
+    type = find_type value unless type
+    e.attributes[:type] = [type] if type
     e.parent.attributes[:last_modified] = Time.now
     
     save() if @autosave
@@ -118,7 +118,7 @@ class DWSRegistry < XMLRegistry
     return e
   end
   
-  def find_class(v)
+  def find_type(v)
 
     if v[/^\d+$/] and v.to_i.to_s.length == v.length then :number
     elsif v[/^\d+\.\d+$/] and v.to_f.to_s.length == v.length then :number
