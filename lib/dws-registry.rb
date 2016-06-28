@@ -78,7 +78,7 @@ class DWSRegistry < XMLRegistry
     
     type = find_type value unless type
     e.attributes[:type] = type if type
-    e.parent.attributes[:last_modified] = Time.now
+    e.parent.attributes[:last_modified] = Time.now.to_s
     
     save() if @autosave
 
