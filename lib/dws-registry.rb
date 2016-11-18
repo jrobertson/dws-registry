@@ -36,7 +36,8 @@ class DWSRegistry < XMLRegistry
     return e unless auto_detect_type
     
     raw_c = e.attributes[:type]
-    c = raw_c.first if raw_c
+
+    c = raw_c if raw_c
     s = e.text
 
     return e if e.elements.length > 0 or s.nil?    
@@ -77,7 +78,7 @@ class DWSRegistry < XMLRegistry
     e = super(path, value)    
     
     type = find_type value unless type
-    e.attributes[:type] = type if type
+    e.attributes[:type] = type.to_s if type
     e.parent.attributes[:last_modified] = Time.now.to_s
     
     save() if @autosave
