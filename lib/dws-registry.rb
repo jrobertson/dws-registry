@@ -69,6 +69,7 @@ class DWSRegistry < XMLRegistry
     when :string     then value
     when :time       then ["#%s#" % value.to_s, :time]
     when :fixnum     then [value.to_s, :number]
+    when :integer    then [value.to_s, :number]
     when :float      then [value.to_s, :number]      
     when :falseclass then [value.to_s, :boolean]
     when :trueclass  then [value.to_s, :boolean]
