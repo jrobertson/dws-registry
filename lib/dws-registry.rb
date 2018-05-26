@@ -9,6 +9,7 @@ require 'json'
 
 
 class DWSRegistry < XMLRegistry
+  include RXFHelperModule
   
   def initialize(filename='registry.xml', autosave: true)
     
@@ -20,7 +21,7 @@ class DWSRegistry < XMLRegistry
 
       @filename = filename      
       
-      if File.exists? filename then
+      if FileX.exists? filename then
         load_xml(filename)
       else
         save()
