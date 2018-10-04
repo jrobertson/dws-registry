@@ -11,9 +11,9 @@ require 'json'
 class DWSRegistry < XMLRegistry
   include RXFHelperModule
   
-  def initialize(filename='registry.xml', autosave: true)
+  def initialize(filename='registry.xml', autosave: true, debug: false)
     
-    super()
+    super(debug: debug)
     
     @autosave = autosave    
     
@@ -66,6 +66,12 @@ class DWSRegistry < XMLRegistry
 
   def set_key(path, value)
     
+    if @debug then
+      puts 'inside set_key path: ' + path.inspect 
+      puts '  value: '  + value.inspect
+      puts '  value.class : '  + value.class.inspect
+    end
+    
     value, type = case value.class.to_s.downcase.to_sym
     when :string     then value
     when :time       then ["#%s#" % value.to_s, :time]
@@ -75,6 +81,7 @@ class DWSRegistry < XMLRegistry
     when :falseclass then [value.to_s, :boolean]
     when :trueclass  then [value.to_s, :boolean]
     when :array       then ["%s" % value.to_json, :json]
+    else value
     end
     
     e = super(path, value)    
@@ -123,6 +130,8 @@ class DWSRegistry < XMLRegistry
   
   def find_type(v)
 
+    puts 'v: ' + v.inspect if @debug
+    
     if v[/^\d+$/] and v.to_i.to_s.length == v.length then :number
     elsif v[/^\d+\.\d+$/] and v.to_f.to_s.length == v.length then :number
     elsif v.downcase[/^(?:true|false|on|off|yes|no)$/] then :boolean

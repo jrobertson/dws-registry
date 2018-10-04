@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name = 'dws-registry'
-  s.version = '0.4.1'
+  s.version = '0.4.2'
   s.summary = 'An XML registry which stores the Ruby data type as ' + 
       'well as the value'
   s.authors = ['James Robertson']
