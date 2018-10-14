@@ -6,6 +6,7 @@ require 'time'
 require 'xml-registry'
 require 'rscript'
 require 'json'
+require 'requestor'
 
 
 class DWSRegistry < XMLRegistry
@@ -28,6 +29,33 @@ class DWSRegistry < XMLRegistry
       end      
 
     end
+  end
+  
+  def gem_register(gemfile)
+    
+    if gemfile =~ /^\w+\:\/\// then
+      
+      code = Requestor.read(File.dirname(gemfile)) do |x| 
+        x.require File.basename(gemfile)
+      end
+      
+      eval code
+      
+    else
+      
+      require gemfile
+      
+    end
+    
+    if defined? RegGem::register then
+      
+      self.import RegGem::register 
+      true
+      
+    else
+      nil
+    end
+    
   end
   
   def get_key(path, auto_detect_type: false)

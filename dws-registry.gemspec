@@ -1,11 +1,12 @@
 Gem::Specification.new do |s|
   s.name = 'dws-registry'
-  s.version = '0.4.2'
+  s.version = '0.5.0'
   s.summary = 'An XML registry which stores the Ruby data type as ' + 
       'well as the value'
   s.authors = ['James Robertson']
   s.files = Dir['lib/dws-registry.rb']
-  s.add_runtime_dependency('xml-registry', '~> 0.5', '>=0.5.5') 
+  s.add_runtime_dependency('xml-registry', '~> 0.6', '>=0.6.0')
+  s.add_runtime_dependency('requestor', '~> 0.2', '>=0.2.1') 
   s.signing_key = '../privatekeys/dws-registry.pem'
   s.cert_chain  = ['gem-public_cert.pem']
   s.license = 'MIT'
