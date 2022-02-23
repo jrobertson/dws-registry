@@ -5,12 +5,12 @@ Gem::Specification.new do |s|
       'well as the value'
   s.authors = ['James Robertson']
   s.files = Dir['lib/dws-registry.rb']
-  s.add_runtime_dependency('xml-registry', '~> 0.6', '>=0.6.0')
-  s.add_runtime_dependency('requestor', '~> 0.2', '>=0.2.1') 
+  s.add_runtime_dependency('xml-registry', '~> 0.8', '>=0.8.0')
+  s.add_runtime_dependency('requestor', '~> 0.5', '>=0.5.0')
   s.signing_key = '../privatekeys/dws-registry.pem'
   s.cert_chain  = ['gem-public_cert.pem']
   s.license = 'MIT'
-  s.email = 'james@jamesrobertson.eu'
+  s.email = 'digital.robertson@gmail.com'
   s.homepage = 'https://github.com/jrobertson/dws-registry'
   s.required_ruby_version = '>= 2.1.2'
 end
